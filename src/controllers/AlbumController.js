@@ -8,10 +8,15 @@ class AlbumController {
 
   albums (req, res) {
     try {
-      let albums = [{id: 1, user_name: 'jhonny'}]
-      res.send(albums)
+      AlbumsSchema.find((error, albums) => {
+        if (error) {
+          res.status(500).send({ message: "Internal Server Error" })
+        } else {
+          res.send({ albums })
+        }
+      })
     } catch (error) {
-      res.status(500).send(error)
+      res.status(500).send({ message: "Internal Server Error" })
     }
   }
 
@@ -24,13 +29,13 @@ class AlbumController {
       album.releaseDate = req.body.releaseDate
       album.save((error, storedAlbum) => {
         if (error) {
-          res.status(500).send(error)
+          res.status(500).send({ message: "Internal Server Error" })
         } else {
           res.send({ album: storedAlbum })
         }
       })
     } catch (error) {
-      res.status(500).send(error)
+      res.status(500).send({ message: "Internal Server Error" })
     }
   }
 }
