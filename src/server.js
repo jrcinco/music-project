@@ -24,3 +24,5 @@ app.listen(port, () => {
 }).on('error', (err) => {
   console.error(err.port)
 })
+
+module.exports = app
