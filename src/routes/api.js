@@ -21,6 +21,7 @@ Route.route('/api/v1/albums')
   .all(send405)
 
 Route.route('/api/v1/albums/:albumId')
+  .put(albumCtl.update)
   .delete(albumCtl.remove)
   .all(send405)
 

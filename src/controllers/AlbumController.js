@@ -41,6 +41,21 @@ class AlbumController {
     }
   }
 
+  update (req, res) {
+    try {
+      AlbumsSchema.findByIdAndUpdate(
+        req.params.albumId, req.body, { new: true, useFindAndModify: false }, (error, updatedAlbum) => {
+        if (error) {
+          res.status(500).send({ message: "Internal Server Error" })
+        } else {
+          res.send({ album: updatedAlbum })
+        }
+      })
+    } catch (error) {
+      res.status(500).send({ message: "Internal Server Error" })
+    }
+  }
+
   remove (req, res) {
     try {
       AlbumsSchema.findById(req.params.albumId, (error, album) => {
