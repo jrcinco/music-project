@@ -27,7 +27,8 @@ Route.route('/api/v1/albums/:albumId')
   .delete(albumCtl.remove)
   .all(send405)
 
-Route.route('/api/v1/artists')  
+Route.route('/api/v1/artists')
+  .get(artistCtl.artists)
   .post(artistCtl.save)
   .all(send405)
 

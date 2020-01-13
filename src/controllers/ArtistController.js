@@ -6,6 +6,22 @@ class ArtistController {
     console.debug('Artist API Controller Constructor')
   }
 
+  artists (req, res) {
+    try {
+      ArtistsSchema.find((error, artists) => {
+        if (error) {
+          res.status(500).send({ message: "Internal Server Error" })
+        } else if (!artists) {
+          res.status(404).send({ message: "Not Found" })
+        } else {
+          res.send({ artists })
+        }
+      })
+    } catch (error) {
+      res.status(500).send({ message: "Internal Server Error" })
+    }
+  }
+
   save (req, res) {
     try {
       let artist = new ArtistsSchema()
