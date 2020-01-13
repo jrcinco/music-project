@@ -34,6 +34,7 @@ Route.route('/api/v1/artists')
 
 Route.route('/api/v1/artists/:artistId')
   .put(artistCtl.update)
+  .delete(artistCtl.remove)
   .all(send405)
 
 module.exports = Route

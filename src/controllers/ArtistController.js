@@ -54,6 +54,28 @@ class ArtistController {
       res.status(500).send({ message: "Internal Server Error" })
     }
   }
+
+  remove (req, res) {
+    try {
+      ArtistsSchema.findById(req.params.artistId, (error, artist) => {
+        if (error) {
+          res.status(500).send({ message: "Internal Server Error" })
+        } else if (!artist) {
+          res.status(404).send({ message: "Not Found" })
+        } else {
+          artist.remove(error => {
+            if (error) {
+              res.status(500).send({ message: "Internal Server Error" })
+            } else {
+              res.send({ message: "Artist was removed" })
+            }
+          })
+        }
+      })
+    } catch (error) {
+      res.status(500).send({ message: "Internal Server Error" })
+    }
+  }
 }
 
 module.exports = {
