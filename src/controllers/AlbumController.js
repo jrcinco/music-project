@@ -1,4 +1,5 @@
 const AlbumsSchema = require('../models/AlbumsSchema')
+const ArtistsSchema = require('../models/ArtistsSchema')
 
 class AlbumController {
 
@@ -14,7 +15,13 @@ class AlbumController {
         } else if (!albums) {
           res.status(404).send({ message: "Not Found" })
         } else {
-          res.send({ albums })
+          ArtistsSchema.populate(albums, { path: "artists" }, (error, albums) => {
+            if (error) {
+              res.status(500).send({ message: "Internal Server Error" })
+            } else {
+              res.send({ albums })
+            }
+          })
         }
       })
     } catch (error) {
@@ -29,6 +36,7 @@ class AlbumController {
       album.year = req.body.year
       album.rating = req.body.rating
       album.releaseDate = req.body.releaseDate
+      album.artists = req.body.artists
       album.save((error, storedAlbum) => {
         if (error) {
           res.status(500).send({ message: "Internal Server Error" })
