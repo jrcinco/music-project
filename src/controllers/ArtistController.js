@@ -39,6 +39,21 @@ class ArtistController {
       res.status(500).send({ message: "Internal Server Error" })
     }
   }
+
+  update (req, res) {
+    try {
+      ArtistsSchema.findByIdAndUpdate(
+        req.params.artistId, req.body, { new: true }, (error, updatedArtist) => {
+        if (error) {
+          res.status(500).send({ message: "Internal Server Error" })
+        } else {
+          res.send({ artist: updatedArtist })
+        }
+      })
+    } catch (error) {
+      res.status(500).send({ message: "Internal Server Error" })
+    }
+  }
 }
 
 module.exports = {

@@ -32,4 +32,8 @@ Route.route('/api/v1/artists')
   .post(artistCtl.save)
   .all(send405)
 
+Route.route('/api/v1/artists/:artistId')
+  .put(artistCtl.update)
+  .all(send405)
+
 module.exports = Route
