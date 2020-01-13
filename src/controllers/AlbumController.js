@@ -44,7 +44,7 @@ class AlbumController {
   update (req, res) {
     try {
       AlbumsSchema.findByIdAndUpdate(
-        req.params.albumId, req.body, { new: true, useFindAndModify: false }, (error, updatedAlbum) => {
+        req.params.albumId, req.body, { new: true }, (error, updatedAlbum) => {
         if (error) {
           res.status(500).send({ message: "Internal Server Error" })
         } else {
