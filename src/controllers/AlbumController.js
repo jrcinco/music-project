@@ -11,6 +11,8 @@ class AlbumController {
       AlbumsSchema.find((error, albums) => {
         if (error) {
           res.status(500).send({ message: "Internal Server Error" })
+        } else if (!albums) {
+          res.status(404).send({ message: "Not Found" })
         } else {
           res.send({ albums })
         }
@@ -32,6 +34,28 @@ class AlbumController {
           res.status(500).send({ message: "Internal Server Error" })
         } else {
           res.send({ album: storedAlbum })
+        }
+      })
+    } catch (error) {
+      res.status(500).send({ message: "Internal Server Error" })
+    }
+  }
+
+  remove (req, res) {
+    try {
+      AlbumsSchema.findById(req.params.albumId, (error, album) => {
+        if (error) {
+          res.status(500).send({ message: "Internal Server Error" })
+        } else if (!album) {
+          res.status(404).send({ message: "Not Found" })
+        } else {
+          album.remove(error => {
+            if (error) {
+              res.status(500).send({ message: "Internal Server Error" })
+            } else {
+              res.send({ message: "Album was removed" })
+            }
+          })
         }
       })
     } catch (error) {

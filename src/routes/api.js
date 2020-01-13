@@ -20,4 +20,8 @@ Route.route('/api/v1/albums')
   .post(albumCtl.saveAlbum)
   .all(send405)
 
+Route.route('/api/v1/albums/:albumId')
+  .delete(albumCtl.remove)
+  .all(send405)
+
 module.exports = Route
